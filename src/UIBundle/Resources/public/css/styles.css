@@ -1,0 +1,10 @@
+.starter-template {
+    padding: 40px 15px;
+    text-align: center;
+}
+
+#mapid { height: 500px; }
+
+.search-box {
+    margin-bottom:20px;
+}

@@ -1,0 +1,48 @@
+{% extends "::base.html.twig" %}
+
+{% block content %}
+    <div class="starter-template">
+        <h1>Lorem Ipsum</h1>
+        <p class="lead">blabalabl blabalabla blbla balbaa blaaaaa</p>
+    </div>
+    <div class="search-box">
+        <input type="text" id="pac-input" class="form-control input-lg" placeholder="Search street, city, etc.." />
+    </div>
+    <div class="search-results"></div>
+    <div id="mapid"></div>
+{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" />
+{% endblock %}
+
+{% block javascripts %}
+<script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyChxUH8Nmtissh-_nh4UzD30SJHfeaT0Rw&libraries=places"></script>
+<script src="{{ asset('bundles/pokemon/js/pokemon.js') }}"></script>
+<script type="text/javascript">
+    var mymap;
+
+    //autocomplete
+    var input = document.getElementById('pac-input');
+    var autocomplete = new google.maps.places.Autocomplete(input);
+    autocomplete.addListener('place_changed', function() {
+        var place = autocomplete.getPlace();
+
+        var lat = place.geometry.location.lat(), lng = place.geometry.location.lng();
+
+        mymap.panTo(new L.LatLng(lat, lng));
+
+        $('.search-results').load('app_dev.php/search/location/'+lat+'/'+lng);
+    });
+
+    //leaflet
+    mymap = L.map('mapid').setView([41.4012208,2.159863], 13);
+    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+        maxZoom: 18,
+        id: 'joanmadrid.0m1bhk38',
+        accessToken: 'pk.eyJ1Ijoiam9hbm1hZHJpZCIsImEiOiJjaXFvMDRld20wMDUyaTJuazNkY2EwZ3B2In0.t-hgxbMxaVHgay1KPDzU9w'
+    }).addTo(mymap);
+</script>
+{% endblock %}

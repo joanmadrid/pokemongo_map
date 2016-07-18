@@ -1,0 +1,4 @@
+pokemon:
+    resource: "@PokemonBundle/Controller/"
+    type:     annotation
+    prefix:   /

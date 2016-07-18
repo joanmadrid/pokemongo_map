@@ -1,0 +1,20 @@
+<p>Pokemon found on the area:</p>
+<div class="list-group">
+    {% for pokemon in results.pokemons %}
+    <a href="#" class="list-group-item active">{{ pokemon.name }}</a>
+    {% endfor %}
+    <a href="#" class="list-group-item">Lorem</a>
+    <a href="#" class="list-group-item">Ipsum</a>
+</div>
+
+<script type="text/javascript">
+    var circle;
+    {% for result in results.locations %}
+    circle = L.circle([{{ result.lat }}, {{ result.lon }}], 500, {
+        color: 'blue',
+        fillColor: '#6699ff',
+        fillOpacity: 0.5
+    }).addTo(mymap);
+    circle.bindPopup("{{ result.pokemon_name }}");
+    {% endfor %}
+</script>
