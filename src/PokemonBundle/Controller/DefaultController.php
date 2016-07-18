@@ -36,8 +36,8 @@ class DefaultController extends Controller
         $resultsJSON = array();
         /** @var PokemonLocation $result */
         foreach($results as $result) {
-            if (!isset($resultsJSON[$result->getPokemon()->getId()])) {
-                $resultsJSON[$result->getPokemon()->getId()] = array(
+            if (!isset($resultsJSON[$result->getPokemon()->getNumber()])) {
+                $resultsJSON[$result->getPokemon()->getNumber()] = array(
                     'number'=> $result->getPokemon()->getNumber(),
                     'name' => $result->getPokemon()->getName(),
                     'color' => $this->random_color(),
@@ -45,11 +45,14 @@ class DefaultController extends Controller
                 );
             }
 
-            $resultsJSON[$result->getPokemon()->getId()]['locations'][] = array(
+            $resultsJSON[$result->getPokemon()->getNumber()]['locations'][] = array(
                 'lat' => $result->getLat(),
                 'lon' => $result->getLon()
             );
         }
+
+        //var_dump($resultsJSON);
+        //die();
 
         return array(
             'results' => $resultsJSON

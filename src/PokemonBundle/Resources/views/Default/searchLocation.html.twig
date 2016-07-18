@@ -23,7 +23,7 @@
             color = $(this).attr('data-pkmn-color');
             pkmns[num] = [];
 
-            raw = $(this).next('input').val();
+            raw = $('.pkmn-'+num).val();
             $.each(raw.split('|'), function( index, value ) {
                 latlon = value.split(',');
                 circle = L.circle([latlon[0], latlon[1]], 200, {
