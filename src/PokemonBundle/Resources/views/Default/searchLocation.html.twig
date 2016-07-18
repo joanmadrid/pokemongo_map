@@ -1,20 +1,49 @@
 <p>Pokemon found on the area:</p>
 <div class="list-group">
-    {% for pokemon in results.pokemons %}
-    <a href="#" class="list-group-item active">{{ pokemon.name }}</a>
+    {% for pokemon in results %}
+        <span class="label label-default" data-pkmn-number="{{ pokemon.number }}" data-pkmn-color="{{ pokemon.color }}" style="background-color: #{{ pokemon.color }};">
+            #{{ pokemon.number }} {{ pokemon.name }}
+        </span>
+        <input type="hidden" class="pkmn-{{ pokemon.number }}" value="{% for location in pokemon.locations %}{% if loop.index != 1 %}|{% endif %}{{ location.lat }},{{ location.lon }}{% endfor %}" />
     {% endfor %}
-    <a href="#" class="list-group-item">Lorem</a>
-    <a href="#" class="list-group-item">Ipsum</a>
 </div>
 
 <script type="text/javascript">
-    var circle;
-    {% for result in results.locations %}
-    circle = L.circle([{{ result.lat }}, {{ result.lon }}], 500, {
-        color: 'blue',
-        fillColor: '#6699ff',
-        fillOpacity: 0.5
-    }).addTo(mymap);
-    circle.bindPopup("{{ result.pokemon_name }}");
-    {% endfor %}
+    var circle, raw, latlon, pkmns, num, color;
+
+    pkmns = [];
+
+    $('.label').on('click', function(e) {
+        e.preventDefault();
+        if ($(this).hasClass('label-default')) {
+            // ENABLE
+            $(this).removeClass('label-default');
+            $(this).addClass('label-active');
+            num = $(this).attr('data-pkmn-number');
+            color = $(this).attr('data-pkmn-color');
+            pkmns[num] = [];
+
+            raw = $(this).next('input').val();
+            $.each(raw.split('|'), function( index, value ) {
+                latlon = value.split(',');
+                circle = L.circle([latlon[0], latlon[1]], 200, {
+                    color: '#'+color,
+                    fillColor: '#'+color,
+                    fillOpacity: 0.5
+                }).addTo(mymap);
+                circle.bindPopup("[name]");
+                pkmns[num].push(circle);
+            });
+        } else {
+            // DISABLE
+            $(this).removeClass('label-active');
+            $(this).addClass('label-default');
+            num = $(this).attr('data-pkmn-number');
+            $.each(pkmns[num], function( index, value ) {
+                mymap.removeLayer(value);
+            });
+            console.log('disable: '+num);
+            console.log(pkmns);
+        }
+    });
 </script>

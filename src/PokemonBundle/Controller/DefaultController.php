@@ -36,14 +36,16 @@ class DefaultController extends Controller
         $resultsJSON = array();
         /** @var PokemonLocation $result */
         foreach($results as $result) {
-            $resultsJSON['pokemons'][$result->getPokemon()->getId()] = array(
-                'id'=> $result->getPokemon()->getId(),
-                'name' => $result->getPokemon()->getName()
-            );
+            if (!isset($resultsJSON[$result->getPokemon()->getId()])) {
+                $resultsJSON[$result->getPokemon()->getId()] = array(
+                    'number'=> $result->getPokemon()->getNumber(),
+                    'name' => $result->getPokemon()->getName(),
+                    'color' => $this->random_color(),
+                    'locations' => array()
+                );
+            }
 
-            $resultsJSON['locations'][] = array(
-                'pokemon_id' => $result->getPokemon()->getId(),
-                'pokemon_name' => $result->getPokemon()->getName(),
+            $resultsJSON[$result->getPokemon()->getId()]['locations'][] = array(
                 'lat' => $result->getLat(),
                 'lon' => $result->getLon()
             );
@@ -52,5 +54,13 @@ class DefaultController extends Controller
         return array(
             'results' => $resultsJSON
         );
+    }
+
+    private function random_color_part() {
+        return str_pad( dechex( mt_rand( 0, 255 ) ), 2, '0', STR_PAD_LEFT);
+    }
+
+     private function random_color() {
+        return $this->random_color_part() . $this->random_color_part() . $this->random_color_part();
     }
 }
