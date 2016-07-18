@@ -1,7 +1,7 @@
 <?php
 namespace PokemonBundle\Command;
 
-use PokemonBundle\Entity\Pokemon;
+use PokemonBundle\Entity\PokemonLocation;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -9,40 +9,41 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Finder\Finder;
 
-class ImportPokemonsCommand extends ContainerAwareCommand
+class ImportLocationsCommand extends ContainerAwareCommand
 {
     private $csvParsingOptions = array(
         'finder_in' => 'raw',
-        'finder_name' => 'pokemons.csv',
-        'ignoreFirstLine' => true
+        'finder_name' => 'locations.csv',
+        'ignoreFirstLine' => false
     );
 
     protected function configure()
     {
         $this
-            ->setName('pokemon:import:pokemons')
-            ->setDescription('Import pokemons CSV');
+            ->setName('pokemon:import:locations')
+            ->setDescription('Import locations CSV');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $doctrine = $this->getContainer()->get('doctrine')->getManager();
+        $repository = $this->getContainer()->get('doctrine')->getRepository('PokemonBundle:Pokemon');
         $csv = $this->parseCSV();
-        //var_dump($csv);
 
         $i = 0;
         foreach($csv as $row) {
-            $pkmn = new Pokemon();
-            $pkmn->setNumber($row[0]);
-            $pkmn->setName($row[1]);
-            //type1 & type2
-            $doctrine->persist($pkmn);
-            $i++;
+            $loc = new PokemonLocation();
+            $pkmn = $repository->findOneById(intval($row[0]));
+            if ($pkmn) {
+                $loc->setPokemon($pkmn);
+                $loc->setLat($row[2]);
+                $loc->setLon($row[3]);
+                $doctrine->persist($loc);
+                $i++;
+            }
         }
         $output->writeln('Imported '.$i);
         $doctrine->flush();
-
-
     }
 
     private function parseCSV()
