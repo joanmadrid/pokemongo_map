@@ -1,5 +1,10 @@
 {% extends "::base.html.twig" %}
 
+{% block menu %}
+    {% set menu_active = 'home' %}
+    {{ parent() }}
+{% endblock %}
+
 {% block content %}
 {#    <div class="starter-template">
         <h1>Lorem Ipsum</h1>
