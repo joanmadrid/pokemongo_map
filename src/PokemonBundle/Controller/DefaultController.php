@@ -24,30 +24,40 @@ class DefaultController extends Controller
      * @Route("/search/location/{lat}/{lon}", name="pokemon.default.search.location")
      * @Template()
      */
-    public function searchLocationAction($lat, $lon)
+    public function searchLocationAction($lat, $lon, $distance = 50)
     {
         $repository = $this->getDoctrine()->getRepository('PokemonBundle:PokemonLocation');
 
         $query = $repository->createQueryBuilder('pl')
+            ->addSelect(
+                '( 3959 * acos(cos(radians(' . $lat . '))' .
+                '* cos( radians( pl.lat ) )' .
+                '* cos( radians( pl.lon )' .
+                '- radians(' . $lon . ') )' .
+                '+ sin( radians(' . $lat . ') )' .
+                '* sin( radians( pl.lat ) ) ) ) as distance'
+            )
             ->join('pl.pokemon', 'p')
+            ->having('distance < :distance')
+            ->setParameter('distance', $distance)
             ->getQuery();
         $results = $query->getResult();
 
         $resultsJSON = array();
         /** @var PokemonLocation $result */
         foreach($results as $result) {
-            if (!isset($resultsJSON[$result->getPokemon()->getNumber()])) {
-                $resultsJSON[$result->getPokemon()->getNumber()] = array(
-                    'number'=> $result->getPokemon()->getNumber(),
-                    'name' => $result->getPokemon()->getName(),
+            if (!isset($resultsJSON[$result[0]->getPokemon()->getNumber()])) {
+                $resultsJSON[$result[0]->getPokemon()->getNumber()] = array(
+                    'number'=> $result[0]->getPokemon()->getNumber(),
+                    'name' => $result[0]->getPokemon()->getName(),
                     'color' => $this->random_color(),
                     'locations' => array()
                 );
             }
 
-            $resultsJSON[$result->getPokemon()->getNumber()]['locations'][] = array(
-                'lat' => $result->getLat(),
-                'lon' => $result->getLon()
+            $resultsJSON[$result[0]->getPokemon()->getNumber()]['locations'][] = array(
+                'lat' => $result[0]->getLat(),
+                'lon' => $result[0]->getLon()
             );
         }
 
