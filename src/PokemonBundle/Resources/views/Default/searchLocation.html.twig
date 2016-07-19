@@ -17,7 +17,7 @@
 </div>
 
 <script type="text/javascript">
-    var circle, raw, latlon, pkmns, num, color;
+    var circle, raw, latlon, pkmns, num, color, name;
 
     pkmns = [];
 
@@ -30,6 +30,7 @@
             num = $(this).attr('data-pkmn-number');
             color = $(this).attr('data-pkmn-color');
             pkmns[num] = [];
+            name = $(this).text();
 
             raw = $('.pkmn-'+num).val();
             $.each(raw.split('|'), function( index, value ) {
@@ -39,7 +40,7 @@
                     fillColor: '#'+color,
                     fillOpacity: 0.3
                 }).addTo(mymap);
-                circle.bindPopup("[name]");
+                circle.bindPopup(name);
                 pkmns[num].push(circle);
             });
         } else {
