@@ -42,7 +42,7 @@ class DefaultController extends Controller
      * @Route("/search/location/{lat}/{lon}", name="pokemon.default.search.location")
      * @Template()
      */
-    public function searchLocationAction($lat, $lon, $distance = 50)
+    public function searchLocationAction($lat, $lon, $distance = 5)
     {
         $repository = $this->getDoctrine()->getRepository('PokemonBundle:PokemonLocation');
 

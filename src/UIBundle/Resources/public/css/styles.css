@@ -3,7 +3,9 @@
     text-align: center;
 }
 
-#mapid { height: 500px; }
+#mapid {
+    height: 800px;
+}
 
 .search-box {
     margin-bottom:20px;
@@ -20,4 +22,8 @@
 
 .bodywrapper {
     padding-top:75px;
+}
+
+html,body{
+    height:100%;
 }
