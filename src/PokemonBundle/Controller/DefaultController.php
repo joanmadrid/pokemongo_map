@@ -40,6 +40,7 @@ class DefaultController extends Controller
             ->join('pl.pokemon', 'p')
             ->having('distance < :distance')
             ->setParameter('distance', $distance)
+            ->orderBy('p.tier', 'DESC')
             ->getQuery();
         $results = $query->getResult();
 
@@ -51,6 +52,7 @@ class DefaultController extends Controller
                     'number'=> $result[0]->getPokemon()->getNumber(),
                     'name' => $result[0]->getPokemon()->getName(),
                     'color' => $this->random_color(),
+                    'tier' => $result[0]->getPokemon()->getTier(),
                     'locations' => array()
                 );
             }

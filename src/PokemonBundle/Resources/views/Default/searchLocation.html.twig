@@ -1,7 +1,15 @@
-<p>Pokemon found on the area:</p>
+<p>Pokemon found on the area. Click on each pokemon you want to sea the probable zones to catch it:</p>
 <div class="list-group">
+    {% set tier = 0 %}
     {% for pokemon in results %}
+        {% if pokemon.tier != tier %}
+            {% set tier = pokemon.tier %}
+            <br />
+            <strong>Tier {{ tier }}</strong>
+            <br />
+        {% endif %}
         <span class="label label-default" data-pkmn-number="{{ pokemon.number }}" data-pkmn-color="{{ pokemon.color }}" style="background-color: #{{ pokemon.color }};">
+            <img src="{{ asset('pokemons/icons/'~pokemon.number~'.png') }}" />
             #{{ pokemon.number }} {{ pokemon.name }}
         </span>
         <input type="hidden" class="pkmn-{{ pokemon.number }}" value="{% for location in pokemon.locations %}{% if loop.index != 1 %}|{% endif %}{{ location.lat }},{{ location.lon }}{% endfor %}" />
@@ -29,7 +37,7 @@
                 circle = L.circle([latlon[0], latlon[1]], 200, {
                     color: '#'+color,
                     fillColor: '#'+color,
-                    fillOpacity: 0.5
+                    fillOpacity: 0.3
                 }).addTo(mymap);
                 circle.bindPopup("[name]");
                 pkmns[num].push(circle);
