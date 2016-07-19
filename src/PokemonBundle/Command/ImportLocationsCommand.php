@@ -33,7 +33,7 @@ class ImportLocationsCommand extends ContainerAwareCommand
         $i = 0;
         foreach($csv as $row) {
             $loc = new PokemonLocation();
-            $pkmn = $repository->findOneById(intval($row[0]));
+            $pkmn = $repository->findOneByNumber(intval($row[0]));
             if ($pkmn) {
                 $loc->setPokemon($pkmn);
                 $loc->setLat($row[2]);

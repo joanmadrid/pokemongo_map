@@ -14,7 +14,7 @@ class ImportPokemonsCommand extends ContainerAwareCommand
     private $csvParsingOptions = array(
         'finder_in' => 'raw',
         'finder_name' => 'pokemons.csv',
-        'ignoreFirstLine' => true
+        'ignoreFirstLine' => false
     );
 
     protected function configure()
