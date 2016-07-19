@@ -35,6 +35,7 @@ class ImportPokemonsCommand extends ContainerAwareCommand
             $pkmn = new Pokemon();
             $pkmn->setNumber($row[0]);
             $pkmn->setName($row[1]);
+            $pkmn->setTier($row[2]);
             //type1 & type2
             $doctrine->persist($pkmn);
             $i++;

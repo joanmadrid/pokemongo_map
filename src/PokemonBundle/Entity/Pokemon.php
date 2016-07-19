@@ -41,6 +41,13 @@ class Pokemon
      */
     private $pokemonLocations;
 
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="tier", type="integer")
+     */
+    private $tier;
+
 
     /**
      * Get id
@@ -112,5 +119,21 @@ class Pokemon
     public function setPokemonLocations($pokemonLocations)
     {
         $this->pokemonLocations = $pokemonLocations;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTier()
+    {
+        return $this->tier;
+    }
+
+    /**
+     * @param int $tier
+     */
+    public function setTier($tier)
+    {
+        $this->tier = $tier;
     }
 }
