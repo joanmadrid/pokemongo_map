@@ -27,3 +27,8 @@
 html,body{
     height:100%;
 }
+
+.pokelogo {
+    height:58px;
+    margin-top:-10px;
+}
