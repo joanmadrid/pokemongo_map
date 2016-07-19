@@ -38,6 +38,8 @@ class ImportLocationsCommand extends ContainerAwareCommand
                 $loc->setPokemon($pkmn);
                 $loc->setLat($row[2]);
                 $loc->setLon($row[3]);
+                //2016-07-19 00:26:58
+                $loc->setDateCreated(\DateTime::createFromFormat('Y-m-d H:i:s', $row[4]));
                 $doctrine->persist($loc);
                 $i++;
             }

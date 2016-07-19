@@ -41,6 +41,13 @@ class PokemonLocation
      */
     private $pokemon;
 
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateCreated", type="datetime")
+     */
+    private $dateCreated;
+
 
     /**
      * Get id
@@ -112,5 +119,21 @@ class PokemonLocation
     public function setPokemon($pokemon)
     {
         $this->pokemon = $pokemon;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDateCreated()
+    {
+        return $this->dateCreated;
+    }
+
+    /**
+     * @param \DateTime $dateCreated
+     */
+    public function setDateCreated($dateCreated)
+    {
+        $this->dateCreated = $dateCreated;
     }
 }
