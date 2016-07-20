@@ -16,7 +16,7 @@
         </span>
         <input type="hidden" class="pkmn-{{ pokemon.number }}" value="{% for location in pokemon.locations %}{% if loop.index != 1 %}|{% endif %}{{ location.lat }},{{ location.lon }}{% endfor %}" />
     {% else %}
-        <div class="alert alert-warning" role="alert">{{ 'pokemon.index.search.noresults'|trans }}</div>
+        <div class="alert alert-warning search-no-result" role="alert">{{ 'pokemon.index.search.noresults'|trans }}</div>
     {% endfor %}
 </div>
 
