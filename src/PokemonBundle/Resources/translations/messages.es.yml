@@ -1,0 +1,14 @@
+#menu
+menu.home: Poke Search
+menu.about: Información
+menu.contact: Contacto
+#pokemon.index
+pokemon.index.search.field: Busca por ciudad, calle, código postal...
+pokemon.index.search.loading: Cargando
+pokemon.index.search.hint: Se han encontrado esto Pokemon en el área. Haz click en cada Pokemon para ver la zona donde puedas encontrarlo con probabilidad
+pokemon.index.search.tier: Dificultad
+#pokemon.contact
+pokemon.contact.message: Si quieres ponerte en contacto con nosotros, envianos un email a: gogopokemap [ at ] gmail [ dot ] com
+#pokemon.about
+pokemon.about.message: Ésta app utilitza información proporcionada por entrenadores Pokemon de la comunidad. Si quieres ayudarnos aportando información de tu zona, no dudes en ponerte en contacto con nosotros, en el apartado de contacto
+pokemon.about.underconstruction: Estamos en construcción. Es una web de fans, para fans, no somos parte de Niantic Inc, Pokémon Inc, Nintendo Inc, Creatures Inc, GAME FREAK inc.
