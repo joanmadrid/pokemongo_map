@@ -1,14 +1,14 @@
 {% extends "::base.html.twig" %}
 
 {% block menu %}
-    {% set menu_active = 'about' %}
+    {% set menu_active = 'contact' %}
     {{ parent() }}
 {% endblock %}
 
+
 {% block content %}
 <div class="container main-container">
-    <p>{{ 'pokemon.about.message'|trans }}</p>
-    <p>{{ 'pokemon.about.underconstruction'|trans }}</p>
+    {% include 'static/contact.'~app.request.locale~'.html.twig' %}
 </div>
 {% endblock %}
 

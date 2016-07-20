@@ -56,8 +56,20 @@
             <ul class="nav navbar-nav">
                 {% block menu %}
                 <li{% if menu_active=='home' %} class="active"{% endif %}><a href="{{ path('pokemon.default.index') }}">{{ 'menu.home'|trans }}</a></li>
-                <li{% if menu_active=='about' %} class="active"{% endif %}><a href="{{ path('pokemon.default.about') }}">{{ 'menu.about'|trans }}</a></li>
-                <li{% if menu_active=='contact' %} class="active"{% endif %}><a href="{{ path('pokemon.default.contact') }}">{{ 'menu.contact'|trans }}</a></li>
+                <li{% if menu_active=='about' %} class="active"{% endif %}><a href="{{ path('pokemon.static.about') }}">{{ 'menu.about'|trans }}</a></li>
+                <li{% if menu_active=='contact' %} class="active"{% endif %}><a href="{{ path('pokemon.static.contact') }}">{{ 'menu.contact'|trans }}</a></li>
+                <li class="dropdown{% if menu_active=='guide' %} active{% endif %}">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ 'menu.guide'|trans }} <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{ path('pokemon.static.howto') }}">{{ 'menu.guide.howto'|trans }}</a></li>
+                        <li><a href="#">{{ 'menu.guide.tips'|trans }}</a></li>
+                        <li><a href="">{{ 'menu.guide.damage.type'|trans }}</a></li>
+                        <li><a href="#">{{ 'menu.guide.egg'|trans }}</a></li>
+                        <li><a href="#">{{ 'menu.guide.lvlup'|trans }}</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="http://www.mmoserverstatus.com/pokemon_go">{{ 'menu.server.status'|trans }}</a></li>
+                    </ul>
+                    </li>
                 {% endblock %}
             </ul>
             <ul class="nav navbar-nav navbar-right">

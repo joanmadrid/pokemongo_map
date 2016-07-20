@@ -2,13 +2,15 @@
 menu.home: Poke Buscador
 menu.about: Información
 menu.contact: Contacto
+menu.guide: Guía Pokemon Go
+menu.guide.howto: Cómo jugar
+menu.guide.tips: Trucos
+menu.guide.damage.type: Tablas de daño según tipo
+menu.guide.egg: Guía de incubar huevos
+menu.guide.lvlup: Guía de subir de nivel
+menu.server.status: Estado de los servidores del juego
 #pokemon.index
 pokemon.index.search.field: Busca por ciudad, calle, código postal...
 pokemon.index.search.loading: Cargando
 pokemon.index.search.hint: Se han encontrado esto Pokemon en el área. Haz click en cada Pokemon para ver la zona donde puedas encontrarlo con probabilidad
 pokemon.index.search.tier: Dificultad
-#pokemon.contact
-pokemon.contact.message: Si quieres ponerte en contacto con nosotros, envianos un email a: gogopokemap [ at ] gmail [ dot ] com
-#pokemon.about
-pokemon.about.message: Ésta app utilitza información proporcionada por entrenadores Pokemon de la comunidad. Si quieres ayudarnos aportando información de tu zona, no dudes en ponerte en contacto con nosotros, en el apartado de contacto
-pokemon.about.underconstruction: Estamos en construcción. Es una web de fans, para fans, no somos parte de Niantic Inc, Pokémon Inc, Nintendo Inc, Creatures Inc, GAME FREAK inc.

@@ -2,14 +2,16 @@
 menu.home: Poke Search
 menu.about: About
 menu.contact: Contact
+menu.guide: Pokemon Go Guide
+menu.guide.howto: How to play
+menu.guide.tips: Tips
+menu.guide.damage.type: Damage Type Table
+menu.guide.egg: Egg guide
+menu.guide.lvlup: Level up guide
+menu.server.status: Check Pokemon Go Server status
 #pokemon.index
 pokemon.index.search.field: Search street, city, etc..
 pokemon.index.search.loading: Loading
 pokemon.index.search.hint: Pokemon found on the area. Click on each pokemon you want to sea the probable zones to catch it
 pokemon.index.search.tier: Tier
-#pokemon.contact
-pokemon.contact.message: If you want to contact us, please send us a email: gogopokemap [ at ] gmail [ dot ] com
-#pokemon.about
-pokemon.about.message: This app uses pokemon trainers community data to populate the map. If you want to help, please refer to the contact section and we will be glad to tell you how!
-pokemon.about.underconstruction: We're under construction. This is a fan website, We are not Niantic Inc, Pokémon Inc, Nintendo Inc, Creatures Inc, GAME FREAK inc.
 

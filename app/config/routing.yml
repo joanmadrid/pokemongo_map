@@ -15,3 +15,24 @@ pokemon:
 
 fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+
+
+
+#static pages
+pokemon.static.about:
+    path: /{_locale}/about
+    defaults:
+        _controller: FrameworkBundle:Template:template
+        template:    static/about.html.twig
+
+pokemon.static.contact:
+    path: /{_locale}/contact
+    defaults:
+        _controller: FrameworkBundle:Template:template
+        template:    static/contact.html.twig
+
+pokemon.static.howto:
+    path: /{_locale}/how-to-play
+    defaults:
+        _controller: FrameworkBundle:Template:template
+        template:    static/howto.html.twig

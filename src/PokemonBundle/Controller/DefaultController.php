@@ -21,24 +21,6 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/about", name="pokemon.default.about")
-     * @Template()
-     */
-    public function aboutAction()
-    {
-        return array();
-    }
-
-    /**
-     * @Route("/contact", name="pokemon.default.contact")
-     * @Template()
-     */
-    public function contactAction()
-    {
-        return array();
-    }
-
-    /**
      * @Route("/search/location/{lat}/{lon}", name="pokemon.default.search.location", options={"expose"=true})
      * @Template()
      */
