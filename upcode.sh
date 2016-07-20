@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 sudo chmod 777 -R app/cache
 sudo chmod 777 -R app/logs
 composer install
