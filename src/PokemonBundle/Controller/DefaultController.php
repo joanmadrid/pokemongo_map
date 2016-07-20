@@ -39,7 +39,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/search/location/{lat}/{lon}", name="pokemon.default.search.location")
+     * @Route("/search/location/{lat}/{lon}", name="pokemon.default.search.location", options={"expose"=true})
      * @Template()
      */
     public function searchLocationAction($lat, $lon, $distance = 5)

@@ -18,6 +18,7 @@ class AppKernel extends Kernel
             new PokemonBundle\PokemonBundle(),
             new UIBundle\UIBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
+            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {

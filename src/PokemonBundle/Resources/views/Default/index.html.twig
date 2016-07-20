@@ -46,7 +46,7 @@
         mymap.panTo(new L.LatLng(lat, lng));
 
         $('.search-loading').show();
-        $('.search-results').load('app_dev.php/search/location/'+lat+'/'+lng, {}, function () {
+        $('.search-results').load(Routing.generate('pokemon.default.search.location', { lat: lat, lon: lng}), {}, function () {
             $('.search-loading').hide();
         });
     });

@@ -12,3 +12,6 @@ pokemon:
     requirements:
       _locale: en|es
     defaults: { _locale: en }
+
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
