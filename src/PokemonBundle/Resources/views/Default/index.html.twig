@@ -14,7 +14,7 @@
                 <div class="search-box">
                     <input type="text" id="pac-input" class="form-control input-lg" placeholder="Search street, city, etc.." />
                 </div>
-
+                <div class="search-loading" style="display:none;"><img src="{{ asset('bundles/ui/img/loading.gif') }}" title="Loading..." /></div>
                 <div class="search-results"></div>
 
             </div>
@@ -45,7 +45,10 @@
 
         mymap.panTo(new L.LatLng(lat, lng));
 
-        $('.search-results').load('app_dev.php/search/location/'+lat+'/'+lng);
+        $('.search-loading').show();
+        $('.search-results').load('app_dev.php/search/location/'+lat+'/'+lng, {}, function () {
+            $('.search-loading').hide();
+        });
     });
 
     //leaflet

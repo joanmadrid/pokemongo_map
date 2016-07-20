@@ -55,3 +55,7 @@ html,body{
     bottom:0;
     overflow:hidden;
 }
+
+.search-loading img {
+    width:100px;
+}
