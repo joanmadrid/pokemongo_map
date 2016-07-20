@@ -1,4 +1,6 @@
+{% if results|length > 0 %}
 <p>{{ 'pokemon.index.search.hint'|trans }}:</p>
+{% endif %}
 <div class="list-group">
     {% set tier = 0 %}
     {% for pokemon in results %}
@@ -13,6 +15,8 @@
             #{{ pokemon.number }} {{ pokemon.name }}
         </span>
         <input type="hidden" class="pkmn-{{ pokemon.number }}" value="{% for location in pokemon.locations %}{% if loop.index != 1 %}|{% endif %}{{ location.lat }},{{ location.lon }}{% endfor %}" />
+    {% else %}
+        <div class="alert alert-warning" role="alert">{{ 'pokemon.index.search.noresults'|trans }}</div>
     {% endfor %}
 </div>
 
