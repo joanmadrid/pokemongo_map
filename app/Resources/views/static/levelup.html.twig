@@ -1,0 +1,13 @@
+{% extends "::base.html.twig" %}
+
+{% block menu %}
+    {% set menu_active = 'guide' %}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+    <div class="container main-container">
+        {% include 'static/levelup.'~app.request.locale~'.html.twig' %}
+    </div>
+{% endblock %}
+

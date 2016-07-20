@@ -36,3 +36,27 @@ pokemon.static.howto:
     defaults:
         _controller: FrameworkBundle:Template:template
         template:    static/howto.html.twig
+
+pokemon.static.damage:
+    path: /{_locale}/damage-type-table
+    defaults:
+        _controller: FrameworkBundle:Template:template
+        template:    static/damage.html.twig
+
+pokemon.static.eggs:
+    path: /{_locale}/egg-incubation-guide
+    defaults:
+        _controller: FrameworkBundle:Template:template
+        template:    static/eggs.html.twig
+
+pokemon.static.levelup:
+    path: /{_locale}/level-up-guide
+    defaults:
+        _controller: FrameworkBundle:Template:template
+        template:    static/levelup.html.twig
+
+pokemon.static.tips:
+    path: /{_locale}/tips
+    defaults:
+        _controller: FrameworkBundle:Template:template
+        template:    static/tips.html.twig

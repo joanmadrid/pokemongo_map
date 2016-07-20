@@ -62,10 +62,10 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ 'menu.guide'|trans }} <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="{{ path('pokemon.static.howto') }}">{{ 'menu.guide.howto'|trans }}</a></li>
-                        <li><a href="#">{{ 'menu.guide.tips'|trans }}</a></li>
-                        <li><a href="">{{ 'menu.guide.damage.type'|trans }}</a></li>
-                        <li><a href="#">{{ 'menu.guide.egg'|trans }}</a></li>
-                        <li><a href="#">{{ 'menu.guide.lvlup'|trans }}</a></li>
+                        <li><a href="{{ path('pokemon.static.tips') }}">{{ 'menu.guide.tips'|trans }}</a></li>
+                        <li><a href="{{ path('pokemon.static.damage') }}">{{ 'menu.guide.damage.type'|trans }}</a></li>
+                        <li><a href="{{ path('pokemon.static.eggs') }}">{{ 'menu.guide.egg'|trans }}</a></li>
+                        <li><a href="{{ path('pokemon.static.levelup') }}">{{ 'menu.guide.lvlup'|trans }}</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a href="http://www.mmoserverstatus.com/pokemon_go">{{ 'menu.server.status'|trans }}</a></li>
                     </ul>
