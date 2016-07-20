@@ -11,13 +11,13 @@
     border:2px solid #000;
 }
 
-/*.bodywrapper {
-    padding-top:75px;
-}*/
-
 .pokelogo {
     height:58px;
     margin-top:-10px;
+}
+
+.main-container {
+    padding-top:75px;
 }
 
 /* bootstrap map layout */

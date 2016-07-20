@@ -1,4 +1,14 @@
+root:
+    path: /
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: /en/
+        permanent: true
+
 pokemon:
     resource: "@PokemonBundle/Controller/"
     type:     annotation
-    prefix:   /
+    prefix:   /{_locale}
+    requirements:
+      _locale: en|es
+    defaults: { _locale: en }

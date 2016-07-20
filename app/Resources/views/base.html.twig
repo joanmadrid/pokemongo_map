@@ -41,23 +41,25 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#"><img class="pokelogo" src="{{ asset('bundles/ui/img/logo.png') }}" alt="#gogopokemap" /></a>
+            <a class="navbar-brand" href="{{ path('pokemon.default.index') }}"><img class="pokelogo" src="{{ asset('bundles/ui/img/logo.png') }}" alt="#gogopokemap" /></a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 {% block menu %}
-                <li{% if menu_active=='home' %} class="active"{% endif %}><a href="{{ path('pokemon.default.index') }}">Home</a></li>
-                <li{% if menu_active=='about' %} class="active"{% endif %}><a href="{{ path('pokemon.default.about') }}">About</a></li>
-                <li{% if menu_active=='contact' %} class="active"{% endif %}><a href="{{ path('pokemon.default.contact') }}">Contact</a></li>
+                <li{% if menu_active=='home' %} class="active"{% endif %}><a href="{{ path('pokemon.default.index') }}">{{ 'menu.home'|trans }}</a></li>
+                <li{% if menu_active=='about' %} class="active"{% endif %}><a href="{{ path('pokemon.default.about') }}">{{ 'menu.about'|trans }}</a></li>
+                <li{% if menu_active=='contact' %} class="active"{% endif %}><a href="{{ path('pokemon.default.contact') }}">{{ 'menu.contact'|trans }}</a></li>
                 {% endblock %}
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li{% if app.request.locale=='en' %} class="active"{% endif %}><a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'en'})) }}">English</a></li>
+                <li{% if app.request.locale=='es' %} class="active"{% endif %}><a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'es'})) }}">Español</a></li>
             </ul>
         </div><!--/.nav-collapse -->
     </div>
 </nav>
 
-<div class="bodywrapper">
-    {% block content %}{% endblock %}
-</div><!-- /.container -->
+{% block content %}{% endblock %}
 
 <!-- Bootstrap core JavaScript
 ================================================== -->

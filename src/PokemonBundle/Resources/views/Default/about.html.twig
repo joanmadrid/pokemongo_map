@@ -6,7 +6,9 @@
 {% endblock %}
 
 {% block content %}
-    <p>This app uses pokemon trainers community data to populate the map. If you want to help, please refer to the <a href="{{ path('pokemon.default.contact') }}">contact section</a> and we will be glad to tell you how!</p>
-    <p>We're under construction. This is a fan website, We are not Niantic Inc, Pokémon Inc, Nintendo Inc, Creatures Inc, GAME FREAK inc.</p>
+<div class="container main-container">
+    <p>{{ 'pokemon.about.message'|trans }}</p>
+    <p>{{ 'pokemon.about.underconstruction'|trans }}</p>
+</div>
 {% endblock %}
 
