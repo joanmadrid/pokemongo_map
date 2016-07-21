@@ -18,4 +18,5 @@ pokemon.index.search.noresults: We can't found any pokemon on this location. We 
 pokemon.index.search.error: Due to high traffic, we are experiencing some problems. We are working to fix them! Try the "Search this location" button, on the map.
 pokemon.index.search.center.button: Search this location
 pokemon.index.search.mylocation: Detect position
+pokemon.index.search.clearfilters: Clear filters
 

@@ -18,3 +18,4 @@ pokemon.index.search.noresults: No hemos podido encontrar ningún Pokemon en est
 pokemon.index.search.error: Debido al trafico de la web, este buscador está dando problemas. Estamos trabajando para solucionarlo. Mientras puedes usar el boton en el mapa "Busca en esta localización"
 pokemon.index.search.center.button: Busca en ésta localización
 pokemon.index.search.mylocation: Detectar posición
+pokemon.index.search.clearfilters: Limpiar filtros

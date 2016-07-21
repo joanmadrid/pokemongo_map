@@ -88,6 +88,7 @@
     {
         var center = mymap.getCenter();
         doSearch(center.lat, center.lng);
+        clearLayers();
     }
     $('.search-center-map').on('click', function(e){e.preventDefault();searchCenterOfTheMap();})
 

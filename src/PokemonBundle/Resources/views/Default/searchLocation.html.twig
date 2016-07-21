@@ -1,6 +1,7 @@
 {% if results|length > 0 %}
 <p class="search-explain">{{ 'pokemon.index.search.hint'|trans }}:</p>
 {% endif %}
+<p><a class="search-clearfilters" href="#">{{ 'pokemon.index.search.clearfilters'|trans }}</a></p>
 <div class="list-group">
     {% set tier = 0 %}
     {% for pokemon in results %}
@@ -55,8 +56,24 @@
             $.each(pkmns[num], function( index, value ) {
                 mymap.removeLayer(value);
             });
-            console.log('disable: '+num);
-            console.log(pkmns);
+            //console.log('disable: '+num);
+            //console.log(pkmns);
         }
     });
+
+    $('.search-clearfilters').on('click', function(e){
+        clearLayers();
+    });
+
+    function clearLayers()
+    {
+        /*var i = 0;
+        mymap.eachLayer(function (layer) {
+            if (i > 0) {
+                mymap.removeLayer(layer);
+            }
+            i++;
+        });*/
+        $('.label-active').click();
+    }
 </script>
