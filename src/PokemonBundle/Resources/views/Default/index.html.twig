@@ -7,24 +7,24 @@
 
 {% block content %}
     <div id="mapid"></div>
-    <button type="button" class="btn btn-success btn-lg search-center-map">{{ 'pokemon.index.search.center.button'|trans }}</button>
+    <div class="search-box">
+        <input type="text" id="pac-input" class="form-control input-lg" placeholder="{{ 'pokemon.index.search.field'|trans }}" />
+    </div>
     <div class="container-fluid" id="main">
         <div class="row">
-            <div class="col-xs-4" id="left">
-                <div class="alert alert-warning">
+            <div class="col-md-8" id="left"></div>
+            <div class="col-md-4" id="right">
+                <button type="button" class="btn btn-primary btn-lg btn-block search-center-map">{{ 'pokemon.index.search.center.button'|trans }}</button>
+                {#<div class="alert alert-warning">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                     {{ 'pokemon.index.search.error'|trans }}
-                </div>
-                <div class="search-box">
-                    <input type="text" id="pac-input" class="form-control input-lg" placeholder="{{ 'pokemon.index.search.field'|trans }}" />
-                </div>
+                </div>#}
                 <div class="search-loading" style="display:none;"><img src="{{ asset('bundles/ui/img/loading.gif') }}" title="{{ 'pokemon.index.search.loading'|trans }}..." /></div>
                 <div class="search-results"></div>
 
             </div>
-            <div class="col-xs-8"></div>
         </div>
     </div>
 {% endblock %}
@@ -51,7 +51,7 @@
 
         mymap.panTo(new L.LatLng(lat, lng));
 
-        doSearch(lat, lng);
+        //doSearch(lat, lng);
     });
 
     //leaflet
