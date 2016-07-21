@@ -7,10 +7,11 @@
 
 {% block content %}
     <div id="mapid"></div>
+    <button type="button" class="btn btn-primary btn-lg search-center-map">{{ 'pokemon.index.search.center.button'|trans }}</button>
     <div class="container-fluid" id="main">
         <div class="row">
             <div class="col-xs-4" id="left">
-                <span class="label label-warning">Due to high traffic, we are experiencing some problems. We are working to fix them!</span>
+                <span class="label label-warning">{{ 'pokemon.index.search.error'|trans }}</span>
                 <div class="search-box">
                     <input type="text" id="pac-input" class="form-control input-lg" placeholder="{{ 'pokemon.index.search.field'|trans }}" />
                 </div>
@@ -45,11 +46,7 @@
 
         mymap.panTo(new L.LatLng(lat, lng));
 
-        $('.search-loading').show();
-        $('.search-no-result').hide();
-        $('.search-results').load(Routing.generate('pokemon.default.search.location', { lat: lat, lon: lng}), {}, function () {
-            $('.search-loading').hide();
-        });
+        doSearch(lat, lng);
     });
 
     //leaflet
@@ -59,5 +56,22 @@
         id: 'gogopokemap.0nbmd20m',
         accessToken: 'pk.eyJ1IjoiZ29nb3Bva2VtYXAiLCJhIjoiY2lxdjVobmZmMDA4dWh3bmlvaDBxdTA2NyJ9.35Fbl3qWanY_UqBrfvG7-Q'
     }).addTo(mymap);
+
+    //search center of the map
+    function searchCenterOfTheMap()
+    {
+        var center = mymap.getCenter();
+        doSearch(center.lat, center.lng);
+    }
+    $('.search-center-map').on('click', function(e){e.preventDefault();searchCenterOfTheMap();})
+
+    function doSearch(lat, lon)
+    {
+        $('.search-loading').show();
+        $('.search-no-result').hide();
+        $('.search-results').load(Routing.generate('pokemon.default.search.location', { _locale: '{{ app.request.locale }}', lat: lat, lon: lon}), {}, function () {
+            $('.search-loading').hide();
+        });
+    }
 </script>
 {% endblock %}

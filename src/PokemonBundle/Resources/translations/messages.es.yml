@@ -15,3 +15,5 @@ pokemon.index.search.loading: Cargando
 pokemon.index.search.hint: Se han encontrado esto Pokemon en el área. Haz click en cada Pokemon para ver la zona donde puedas encontrarlo con probabilidad
 pokemon.index.search.tier: Dificultad
 pokemon.index.search.noresults: No hemos podido encontrar ningún Pokemon en esta zona. Necesitamos la ayuda de otros entrenadores Pokemon para rellenar el mapa. Si quieres ayudar, ponte en contacto con nosotros!
+pokemon.index.search.error: Debido al trafico de la web, este buscador está dando problemas. Estamos trabajando para solucionarlo. Mientras puedes usar el boton en el mapa "Busca en esta localización"
+pokemon.index.search.center.button: Busca en esta localización

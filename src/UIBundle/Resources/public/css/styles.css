@@ -20,6 +20,13 @@
     padding-top:75px;
 }
 
+.search-center-map {
+    position:absolute;
+    /*z-index:100;*/
+    bottom:30px;
+    right:30px;
+}
+
 /* bootstrap map layout */
 html,body{
     height:100%;
