@@ -69,8 +69,10 @@
     {
         $('.search-loading').show();
         $('.search-no-result').hide();
+        $('.search-results').hide();
         $('.search-results').load(Routing.generate('pokemon.default.search.location', { _locale: '{{ app.request.locale }}', lat: lat, lon: lon}), {}, function () {
             $('.search-loading').hide();
+            $('.search-results').show();
         });
     }
 </script>
