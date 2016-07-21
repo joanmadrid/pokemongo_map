@@ -8,7 +8,14 @@
 {% block content %}
     <div id="mapid"></div>
     <div class="search-box">
-        <input type="text" id="pac-input" class="form-control input-lg" placeholder="{{ 'pokemon.index.search.field'|trans }}" />
+        <div class="row">
+            <div class="col-md-10">
+                <input type="text" id="pac-input" class="form-control input-lg" placeholder="{{ 'pokemon.index.search.field'|trans }}" />
+            </div>
+            <div class="col-md-2">
+                <button type="button" class="search-my-location btn btn-default">{{ 'pokemon.index.search.mylocation'|trans }}</button>
+            </div>
+        </div>
     </div>
     <div class="container-fluid" id="main">
         <div class="row">
@@ -61,6 +68,18 @@
         id: 'gogopokemap.0nbmd20m',
         accessToken: 'pk.eyJ1IjoiZ29nb3Bva2VtYXAiLCJhIjoiY2lxdjVobmZmMDA4dWh3bmlvaDBxdTA2NyJ9.35Fbl3qWanY_UqBrfvG7-Q'
     }).addTo(mymap);
+
+    //detect location
+    $('.search-my-location').on('click', function(e){
+        e.preventDefault();
+        navigator.geolocation.getCurrentPosition(function(location) {
+            //console.log(location.coords.latitude);
+            //console.log(location.coords.longitude);
+            //console.log(location.coords.accuracy);
+            mymap.panTo(new L.LatLng(location.coords.latitude, location.coords.longitude));
+            mymap.setZoom(13);
+        });
+    });
 
     //search center of the map
     function searchCenterOfTheMap()

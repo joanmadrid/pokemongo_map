@@ -28,6 +28,10 @@
     margin-bottom:10px;
 }
 
+.search-my-location {
+    margin-top:5px;
+}
+
 /* bootstrap map layout */
 html,body{
     height:100%;
