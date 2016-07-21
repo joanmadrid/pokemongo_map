@@ -9,10 +9,10 @@
     <div id="mapid"></div>
     <div class="search-box">
         <div class="row">
-            <div class="col-md-10">
+            <div class="col-xs-10">
                 <input type="text" id="pac-input" class="form-control input-lg" placeholder="{{ 'pokemon.index.search.field'|trans }}" />
             </div>
-            <div class="col-md-2">
+            <div class="col-xs-2">
                 <button type="button" class="search-my-location btn btn-default">{{ 'pokemon.index.search.mylocation'|trans }}</button>
             </div>
         </div>
@@ -68,6 +68,8 @@
         id: 'gogopokemap.0nbmd20m',
         accessToken: 'pk.eyJ1IjoiZ29nb3Bva2VtYXAiLCJhIjoiY2lxdjVobmZmMDA4dWh3bmlvaDBxdTA2NyJ9.35Fbl3qWanY_UqBrfvG7-Q'
     }).addTo(mymap);
+
+    doSearch(41.4012208,2.159863);
 
     //detect location
     $('.search-my-location').on('click', function(e){
