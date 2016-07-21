@@ -74,6 +74,10 @@ html,body{
 
 /* RESPONSIVE */
 @media only screen and (max-device-width: 768px) {
+    .pokelogo {
+        height:50px;
+    }
+
     #main>.row {
         overflow-y:visible;
     }
@@ -81,11 +85,11 @@ html,body{
     #mapid {
         width:100%;
         position: relative;
-        height:450px;
+        height:400px;
     }
 
     #left {
-        height:60px;
+        height:10px;
     }
 
     #right {
