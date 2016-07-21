@@ -12,8 +12,8 @@ use Symfony\Component\Finder\Finder;
 class ImportLocationsCommand extends ContainerAwareCommand
 {
     private $csvParsingOptions = array(
-        'finder_in' => 'raw',
-        'finder_name' => 'locations.csv',
+        //'finder_in' => 'raw',
+        //'finder_name' => 'locations.csv',
         'ignoreFirstLine' => false
     );
 
@@ -21,14 +21,24 @@ class ImportLocationsCommand extends ContainerAwareCommand
     {
         $this
             ->setName('pokemon:import:locations')
-            ->setDescription('Import locations CSV');
+            ->setDescription('Import locations CSV')
+            ->addArgument(
+                'path',
+                InputArgument::REQUIRED,
+                'ex. raw'
+            )
+            ->addArgument(
+                'file',
+                InputArgument::REQUIRED,
+                'ex. locations.csv'
+            );
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $doctrine = $this->getContainer()->get('doctrine')->getManager();
         $repository = $this->getContainer()->get('doctrine')->getRepository('PokemonBundle:Pokemon');
-        $csv = $this->parseCSV();
+        $csv = $this->parseCSV($input->getArgument('path'), $input->getArgument('file'));
 
         $i = 0;
         foreach($csv as $row) {
@@ -38,7 +48,6 @@ class ImportLocationsCommand extends ContainerAwareCommand
                 $loc->setPokemon($pkmn);
                 $loc->setLat($row[2]);
                 $loc->setLon($row[3]);
-                //2016-07-19 00:26:58
                 $loc->setDateCreated(\DateTime::createFromFormat('Y-m-d H:i:s', $row[4]));
                 $doctrine->persist($loc);
                 $i++;
@@ -48,14 +57,14 @@ class ImportLocationsCommand extends ContainerAwareCommand
         $doctrine->flush();
     }
 
-    private function parseCSV()
+    private function parseCSV($path, $file)
     {
         $ignoreFirstLine = $this->csvParsingOptions['ignoreFirstLine'];
 
         $finder = new Finder();
         $finder->files()
-            ->in($this->csvParsingOptions['finder_in'])
-            ->name($this->csvParsingOptions['finder_name'])
+            ->in($path)
+            ->name($file)
         ;
         foreach ($finder as $file) { $csv = $file; }
 
