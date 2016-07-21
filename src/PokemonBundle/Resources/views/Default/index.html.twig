@@ -7,11 +7,16 @@
 
 {% block content %}
     <div id="mapid"></div>
-    <button type="button" class="btn btn-primary btn-lg search-center-map">{{ 'pokemon.index.search.center.button'|trans }}</button>
+    <button type="button" class="btn btn-success btn-lg search-center-map">{{ 'pokemon.index.search.center.button'|trans }}</button>
     <div class="container-fluid" id="main">
         <div class="row">
             <div class="col-xs-4" id="left">
-                <span class="label label-warning">{{ 'pokemon.index.search.error'|trans }}</span>
+                <div class="alert alert-warning">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    {{ 'pokemon.index.search.error'|trans }}
+                </div>
                 <div class="search-box">
                     <input type="text" id="pac-input" class="form-control input-lg" placeholder="{{ 'pokemon.index.search.field'|trans }}" />
                 </div>
