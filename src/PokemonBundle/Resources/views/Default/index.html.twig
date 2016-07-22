@@ -59,6 +59,7 @@
         mymap.panTo(new L.LatLng(lat, lng));
 
         //doSearch(lat, lng);
+        dataLayer.push({'event': 'filter_city'});
     });
 
     //leaflet
