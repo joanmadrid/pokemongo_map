@@ -48,6 +48,13 @@ class PokemonLocation
      */
     private $dateCreated;
 
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="calculated", type="boolean")
+     */
+    private $calculated = false;
+
 
     /**
      * Get id
@@ -136,4 +143,22 @@ class PokemonLocation
     {
         $this->dateCreated = $dateCreated;
     }
+
+    /**
+     * @return boolean
+     */
+    public function isCalculated()
+    {
+        return $this->calculated;
+    }
+
+    /**
+     * @param boolean $calculated
+     */
+    public function setCalculated($calculated)
+    {
+        $this->calculated = $calculated;
+    }
+
+
 }
