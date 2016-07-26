@@ -28,6 +28,7 @@
                     <strong>{{ 'pokemon.index.count.well'|trans }}</strong>
                     <span class="counter">{{ plCount }}</span>
                 </div>
+                <p><a class="btn btn-primary btn-block btn-lg" href="{{ path('pokemon.default.search') }}">{{ 'pokemon.index.goto.search'|trans }}</a></p>
                 <p>{{ 'pokemon.index.localities.top'|trans }}</p>
                 <ul>
                 {% for locality in localities %}

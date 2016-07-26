@@ -15,6 +15,7 @@ pokemon.index.count: Pokemons registrados
 pokemon.index.localities.top: Esto son algunos ejemplos de lugares donde puedes buscar Pokemons
 pokemon.index.localities.search: Busca en éste lugar
 pokemon.index.count.well: Total de Pokemons registrados actualmente
+pokemon.index.goto.search: Ir a Buscador de localizaciones de Pokemons
 #pokemon.index
 pokemon.search.field: Busca por ciudad, calle, código postal...
 pokemon.search.loading: Cargando

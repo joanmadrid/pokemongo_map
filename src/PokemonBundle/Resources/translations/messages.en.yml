@@ -15,6 +15,7 @@ pokemon.index.count: registered Pokemons
 pokemon.index.localities.top: These are a selection of locations you can search for pokemons
 pokemon.index.localities.search: Seach on this location
 pokemon.index.count.well: Total number of pokemons we have registered at the moment
+pokemon.index.goto.search: Go to Pokemon Location Search
 #pokemon.search
 pokemon.search.field: Search street, city, etc..
 pokemon.search.loading: Loading
