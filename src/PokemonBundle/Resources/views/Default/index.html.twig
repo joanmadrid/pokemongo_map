@@ -79,6 +79,7 @@
     {% endfor %}
 
     mymap.addLayer(markers);
+    mymap.fitBounds(markers.getBounds());
 
     //counter
     $('.counter').countTo({

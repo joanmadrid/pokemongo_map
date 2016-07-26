@@ -22,9 +22,10 @@
 </div>
 
 <script type="text/javascript">
-    var circle, raw, latlon, pkmns, num, color, name;
+    var circle, raw, latlon, pkmns, num, color, name, group;
 
     pkmns = [];
+    group = [];
 
     $('.label').on('click', function(e) {
         e.preventDefault();
@@ -47,7 +48,9 @@
                 }).addTo(mymap);
                 circle.bindPopup(name);
                 pkmns[num].push(circle);
+                group.push([latlon[0], latlon[1]]);
             });
+            mymap.fitBounds(group);
         } else {
             // DISABLE
             $(this).removeClass('label-active');
