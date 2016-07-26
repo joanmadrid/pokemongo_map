@@ -1,5 +1,6 @@
 #menu
-menu.home: Poke Buscador
+menu.home: Inicio
+menu.search: Poke Buscador
 menu.about: Información
 menu.contact: Contacto
 menu.guide: Guía Pokemon Go
@@ -10,12 +11,17 @@ menu.guide.egg: Guía de incubar huevos
 menu.guide.lvlup: Guía de subir de nivel
 menu.server.status: Estado de los servidores del juego
 #pokemon.index
-pokemon.index.search.field: Busca por ciudad, calle, código postal...
-pokemon.index.search.loading: Cargando
-pokemon.index.search.hint: Se han encontrado esto Pokemon en el área. Haz click en cada Pokemon para ver la zona donde puedas encontrarlo con probabilidad
-pokemon.index.search.tier: Dificultad
-pokemon.index.search.noresults: No hemos podido encontrar ningún Pokemon en esta zona. Necesitamos la ayuda de otros entrenadores Pokemon para rellenar el mapa. Si quieres ayudar, ponte en contacto con nosotros!
-pokemon.index.search.error: Debido al trafico de la web, este buscador está dando problemas. Estamos trabajando para solucionarlo. Mientras puedes usar el boton en el mapa "Busca en esta localización"
-pokemon.index.search.center.button: Busca en ésta localización
-pokemon.index.search.mylocation: Detectar posición
-pokemon.index.search.clearfilters: Limpiar filtros
+pokemon.index.count: Pokemons registrados
+pokemon.index.localities.top: Esto son algunos ejemplos de lugares donde puedes buscar Pokemons
+pokemon.index.localities.search: Busca en éste lugar
+pokemon.index.count.well: Total de Pokemons registrados actualmente
+#pokemon.index
+pokemon.search.field: Busca por ciudad, calle, código postal...
+pokemon.search.loading: Cargando
+pokemon.search.hint: Se han encontrado esto Pokemon en el área. Haz click en cada Pokemon para ver la zona donde puedas encontrarlo con probabilidad
+pokemon.search.tier: Dificultad
+pokemon.search.noresults: No hemos podido encontrar ningún Pokemon en esta zona. Necesitamos la ayuda de otros entrenadores Pokemon para rellenar el mapa. Si quieres ayudar, ponte en contacto con nosotros!
+pokemon.search.error: Debido al trafico de la web, este buscador está dando problemas. Estamos trabajando para solucionarlo. Mientras puedes usar el boton en el mapa "Busca en esta localización"
+pokemon.search.center.button: Busca en ésta localización
+pokemon.search.mylocation: Detectar posición
+pokemon.search.clearfilters: Limpiar filtros

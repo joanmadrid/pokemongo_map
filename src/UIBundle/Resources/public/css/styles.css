@@ -72,6 +72,10 @@ html,body{
     width:100px;
 }
 
+.well-count {text-align:center;}
+.well-count strong {font-size:20px; display:block;}
+.well-count span{font-size:40px; font-weight: bold;}
+
 /* RESPONSIVE */
 @media only screen and (max-device-width: 768px) {
     .pokelogo {

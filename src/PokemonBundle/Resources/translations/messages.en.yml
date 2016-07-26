@@ -1,5 +1,6 @@
 #menu
-menu.home: Poke Search
+menu.home: Home
+menu.search: Poke Search
 menu.about: About
 menu.contact: Contact
 menu.guide: Pokemon Go Guide
@@ -10,13 +11,18 @@ menu.guide.egg: Egg guide
 menu.guide.lvlup: Level up guide
 menu.server.status: Check Pokemon Go Server status
 #pokemon.index
-pokemon.index.search.field: Search street, city, etc..
-pokemon.index.search.loading: Loading
-pokemon.index.search.hint: Pokemon found on the area. Click on each pokemon you want to sea the probable zones to catch it
-pokemon.index.search.tier: Tier
-pokemon.index.search.noresults: We can't found any pokemon on this location. We need the help of other trainers to fill the map, please refer to the contact page if you want to help.
-pokemon.index.search.error: Due to high traffic, we are experiencing some problems. We are working to fix them! Try the "Search this location" button, on the map.
-pokemon.index.search.center.button: Search this location
-pokemon.index.search.mylocation: Detect position
-pokemon.index.search.clearfilters: Clear filters
+pokemon.index.count: registered Pokemons
+pokemon.index.localities.top: These are a selection of locations you can search for pokemons
+pokemon.index.localities.search: Seach on this location
+pokemon.index.count.well: Total number of pokemons we have registered at the moment
+#pokemon.search
+pokemon.search.field: Search street, city, etc..
+pokemon.search.loading: Loading
+pokemon.search.hint: Pokemon found on the area. Click on each pokemon you want to sea the probable zones to catch it
+pokemon.search.tier: Tier
+pokemon.search.noresults: We can't found any pokemon on this location. We need the help of other trainers to fill the map, please refer to the contact page if you want to help.
+pokemon.search.error: Due to high traffic, we are experiencing some problems. We are working to fix them! Try the "Search this location" button, on the map.
+pokemon.search.center.button: Search this location
+pokemon.search.mylocation: Detect position
+pokemon.search.clearfilters: Clear filters
 

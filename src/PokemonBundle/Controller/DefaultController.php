@@ -2,6 +2,7 @@
 
 namespace PokemonBundle\Controller;
 
+use Doctrine\ORM\EntityRepository;
 use PokemonBundle\Entity\PokemonLocation;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -17,7 +18,43 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        return array();
+        //localidades
+        /** @var EntityRepository $lr */
+        $lr = $this->getDoctrine()->getRepository('PokemonBundle:Locality');
+        $lq = $lr->createQueryBuilder('l')
+            ->where('l.level = 1')
+            ->orderBy('l.count', 'DESC')
+            ->setMaxResults(20)
+            ->getQuery();
+
+        $lres = $lq->getResult();
+
+        //contador generico
+        /** @var EntityRepository $plr */
+        $plr = $this->getDoctrine()->getRepository('PokemonBundle:PokemonLocation');
+        $plq = $plr->createQueryBuilder('pl')
+            ->select('COUNT(pl.id)');
+
+        $plCount = $plq->getQuery()->getSingleScalarResult();
+
+        return array(
+            'localities' => $lres,
+            'plCount' => $plCount
+        );
+    }
+
+    /**
+     * @Route("/search/{lat}/{lon}", name="pokemon.default.search")
+     * @Template()
+     */
+    public function searchAction($lat = 41.4012208, $lon = 2.159863)
+    {
+
+
+        return array(
+            'defaultLat' => $lat,
+            'defaultLon' => $lon
+        );
     }
 
     /**

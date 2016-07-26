@@ -1,14 +1,14 @@
 {% if results|length > 0 %}
-<p class="search-explain">{{ 'pokemon.index.search.hint'|trans }}:</p>
+<p class="search-explain">{{ 'pokemon.search.hint'|trans }}:</p>
 {% endif %}
-<p><a class="search-clearfilters" href="#">{{ 'pokemon.index.search.clearfilters'|trans }}</a></p>
+<p><a class="search-clearfilters" href="#">{{ 'pokemon.search.clearfilters'|trans }}</a></p>
 <div class="list-group">
     {% set tier = 0 %}
     {% for pokemon in results %}
         {% if pokemon.tier != tier %}
             {% set tier = pokemon.tier %}
             <br />
-            <strong>{{ 'pokemon.index.search.tier'|trans }} {{ tier }}</strong>
+            <strong>{{ 'pokemon.search.tier'|trans }} {{ tier }}</strong>
             <br />
         {% endif %}
         <span class="label label-default" data-pkmn-number="{{ pokemon.number }}" data-pkmn-color="{{ pokemon.color }}" style="background-color: #{{ pokemon.color }};">
@@ -17,7 +17,7 @@
         </span>
         <input type="hidden" class="pkmn-{{ pokemon.number }}" value="{% for location in pokemon.locations %}{% if loop.index != 1 %}|{% endif %}{{ location.lat }},{{ location.lon }}{% endfor %}" />
     {% else %}
-        <div class="alert alert-info search-no-result" role="alert">{{ 'pokemon.index.search.noresults'|trans }}</div>
+        <div class="alert alert-info search-no-result" role="alert">{{ 'pokemon.search.noresults'|trans }}</div>
     {% endfor %}
 </div>
 

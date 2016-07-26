@@ -1,0 +1,107 @@
+{% extends "::base.html.twig" %}
+
+{% block menu %}
+    {% set menu_active = 'search' %}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+    <div id="mapid"></div>
+    <div class="search-box">
+        <div class="row">
+            <div class="col-xs-12">
+                <input type="text" id="pac-input" class="form-control input-lg" placeholder="{{ 'pokemon.search.field'|trans }}" />
+            </div>
+            {#<div class="col-xs-2">
+                <button type="button" class="search-my-location btn btn-default">{{ 'pokemon.search.mylocation'|trans }}</button>
+            </div>#}
+        </div>
+    </div>
+    <div class="container-fluid" id="main">
+        <div class="row">
+            <div class="col-md-8" id="left"></div>
+            <div class="col-md-4" id="right">
+                <button type="button" class="btn btn-primary btn-lg btn-block search-center-map">{{ 'pokemon.search.center.button'|trans }}</button>
+                {#<div class="alert alert-warning">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    {{ 'pokemon.search.error'|trans }}
+                </div>#}
+                <div class="search-loading" style="display:none;"><img src="{{ asset('bundles/ui/img/loading.gif') }}" title="{{ 'pokemon.search.loading'|trans }}..." /></div>
+                <div class="search-results"></div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="https://npmcdn.com/leaflet@0.7.7/dist/leaflet.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" />
+{% endblock %}
+
+{% block javascripts %}
+<script src="https://npmcdn.com/leaflet@0.7.7/dist/leaflet.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBWL1YJElYUMHnzPvxpxFCfN-ohfuMHO4s&libraries=places"></script>
+<script src="{{ asset('bundles/pokemon/js/pokemon.js') }}"></script>
+<script type="text/javascript">
+    var mymap;
+
+    //autocomplete
+    var input = document.getElementById('pac-input');
+    var autocomplete = new google.maps.places.Autocomplete(input);
+    autocomplete.addListener('place_changed', function() {
+        var place = autocomplete.getPlace();
+
+        var lat = place.geometry.location.lat(), lng = place.geometry.location.lng();
+
+        mymap.panTo(new L.LatLng(lat, lng));
+
+        //doSearch(lat, lng);
+        dataLayer.push({'event': 'filter_city'});
+    });
+
+    //leaflet
+    mymap = L.map('mapid').setView([{{ defaultLat }},{{ defaultLon }}], 13);
+    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZ29nb3Bva2VtYXAiLCJhIjoiY2lxdjVobmZmMDA4dWh3bmlvaDBxdTA2NyJ9.35Fbl3qWanY_UqBrfvG7-Q', {
+        maxZoom: 18,
+        id: 'gogopokemap.0nbmd20m',
+        accessToken: 'pk.eyJ1IjoiZ29nb3Bva2VtYXAiLCJhIjoiY2lxdjVobmZmMDA4dWh3bmlvaDBxdTA2NyJ9.35Fbl3qWanY_UqBrfvG7-Q'
+    }).addTo(mymap);
+
+    doSearch({{ defaultLat }},{{ defaultLon }});
+
+    //detect location
+    $('.search-my-location').on('click', function(e){
+        e.preventDefault();
+        navigator.geolocation.getCurrentPosition(function(location) {
+            //console.log(location.coords.latitude);
+            //console.log(location.coords.longitude);
+            //console.log(location.coords.accuracy);
+            mymap.panTo(new L.LatLng(location.coords.latitude, location.coords.longitude));
+            mymap.setZoom(13);
+        });
+    });
+
+    //search center of the map
+    function searchCenterOfTheMap()
+    {
+        var center = mymap.getCenter();
+        doSearch(center.lat, center.lng);
+        clearLayers();
+    }
+    $('.search-center-map').on('click', function(e){e.preventDefault();searchCenterOfTheMap();})
+
+    function doSearch(lat, lon)
+    {
+        $('.search-loading').show();
+        $('.search-no-result').hide();
+        $('.search-results').hide();
+        $('.search-results').load(Routing.generate('pokemon.default.search.location', { _locale: '{{ app.request.locale }}', lat: lat, lon: lon}), {}, function () {
+            $('.search-loading').hide();
+            $('.search-results').show();
+        });
+    }
+</script>
+{% endblock %}
