@@ -107,5 +107,9 @@ html,body{
     .search-explain {
         display:none;
     }
+
+    .well-count {text-align:center;}
+    .well-count strong {font-size:15px; display:block;}
+    .well-count span{font-size:30px; font-weight: bold;}
 }
 
