@@ -4,15 +4,12 @@ namespace PokemonBundle\Command;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
-use Doctrine\ORM\Repository\RepositoryFactory;
 use PokemonBundle\Entity\Locality;
 use PokemonBundle\Entity\PokemonLocation;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
-use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Finder\Finder;
 
 class CalculateLocalitiesCommand extends ContainerAwareCommand
 {
@@ -26,6 +23,8 @@ class CalculateLocalitiesCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $inserts = array();
+
         /** @var EntityManager $em */
         $em = $this->getContainer()->get('doctrine')->getManager();
         /** @var EntityRepository $repository */
@@ -43,55 +42,84 @@ class CalculateLocalitiesCommand extends ContainerAwareCommand
 
         /** @var PokemonLocation $pokemonLocation */
         foreach ($pokemonLocations as $pokemonLocation) {
-            $apiResult = $this->getAPI($pokemonLocation->getLat(), $pokemonLocation->getLon());
+            $apiResult = $this->getAPI($pokemonLocation->getLat(), $pokemonLocation->getLon(), $output);
 
             // Check if exists error on GOOGLE API
             if (!$apiResult) {
                 sleep(2);
+                $output->writeln('Sleep 2...');
+
                 continue;
             }
 
-            $neighborhood = $apiResult[0]['address_components'][2]['long_name'];
-            $city = $apiResult[0]['address_components'][3]['long_name'];
+            if (array_key_exists(0, $apiResult) && array_key_exists('address_components', $apiResult[0]) && array_key_exists(2, $apiResult[0]['address_components'])) {
+                $neighborhood = $apiResult[0]['address_components'][2]['long_name'];
 
-            if ($neighborhood == "" || $city == "") {
-                continue;
-            }
+                if ($neighborhood == "") {
+                    continue;
+                }
 
-            $loc1 = $this->addValue($em, $lr, $neighborhood, 0, $pokemonLocation->getLat(), $pokemonLocation->getLon());
-            $em->persist($loc1);
+                if (!array_key_exists($neighborhood, $inserts)) {
+                    $location = $this->addValue($em, $lr, $neighborhood, 0, $pokemonLocation->getLat(), $pokemonLocation->getLon());
+                    $inserts[$location->getName()] = $location;
+                } else {
+                    $location = $inserts[$neighborhood];
+                    $location->add(1);
+                }
 
-            $loc2 = $this->addValue($em, $lr, $city, 1, $pokemonLocation->getLat(), $pokemonLocation->getLon());
-            $em->persist($loc2);
+                $em->persist($location);
 
-            $output->writeln('Calculated location level 1: ' . $neighborhood);
-            $output->writeln('Calculated location level 2: ' . $city);
+                $pokemonLocation->setCalculated(true);
+                $em->persist($pokemonLocation);
 
-            $pokemonLocation->setCalculated(true);
-            $em->persist($pokemonLocation);
+                $temp += 1;
+                if ($temp >= 100) {
+                    $output->writeln('Insertando bloque de 100');
 
-            $temp += 1;
+                    $temp = 0;
+                    $em->flush();
 
-            if ($temp >= 100) {
-                $temp = 0;
-                $em->flush();
+                    if (!$this->continueScanning($lr, $output)) {
+                        break;
+                    }
+                }
             }
         }
-
-
     }
 
-    private function getAPI($lat, $lon)
+    private function getAPI($lat, $lon, $output)
     {
-        $url = "http://maps.googleapis.com/maps/api/geocode/json?latlng=" . $lat . "," . $lon;
-        $resp_json = file_get_contents($url);
-        $resp = json_decode($resp_json, true);
+        try {
+            $url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" . $lat . "," . $lon . "&key=AIzaSyBWL1YJElYUMHnzPvxpxFCfN-ohfuMHO4s";
+            $resp_json = file_get_contents($url);
+            $resp = json_decode($resp_json, true);
+        } catch (Exception $e) {
+            $output->writeln('Crash... ' + $e->getMessage());
+            return false;
+        }
 
         if ($resp['status'] == 'OK') {
             return $resp['results'];
         } else {
+            var_dump($resp);
             return false;
         }
+    }
+
+    private function continueScanning($lr, $out)
+    {
+        $lq = $lr->createQueryBuilder('l')
+            ->select('SUM(l.count)');
+
+        $count = $lq->getQuery()->getSingleScalarResult();
+        $out->writeln('Pokemons found: ' + $count);
+
+        if ($count >= 70000) {
+            return false;
+        } else {
+            return true;
+        }
+
     }
 
     private function addValue($em, $lr, $name, $level, $lat, $lon)

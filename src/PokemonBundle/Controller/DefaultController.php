@@ -22,7 +22,7 @@ class DefaultController extends Controller
         /** @var EntityRepository $lr */
         $lr = $this->getDoctrine()->getRepository('PokemonBundle:Locality');
         $lq = $lr->createQueryBuilder('l')
-            ->where('l.level = 1')
+            ->where('l.level = 0')
             ->orderBy('l.count', 'DESC')
             ->setMaxResults(20)
             ->getQuery();
