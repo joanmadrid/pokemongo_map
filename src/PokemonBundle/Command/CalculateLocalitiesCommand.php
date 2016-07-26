@@ -39,22 +39,43 @@ class CalculateLocalitiesCommand extends ContainerAwareCommand
 
         $pokemonLocations = $query->getResult();
 
+        $temp = 0;
+
         /** @var PokemonLocation $pokemonLocation */
         foreach ($pokemonLocations as $pokemonLocation) {
             $apiResult = $this->getAPI($pokemonLocation->getLat(), $pokemonLocation->getLon());
 
-            $loc1 = $this->addValue($em, $lr, $apiResult[2]['address_components'][0]['long_name'], 0, $pokemonLocation->getLat(), $pokemonLocation->getLon());
+            // Check if exists error on GOOGLE API
+            if (!$apiResult) {
+                sleep(2);
+                continue;
+            }
+
+            $neighborhood = $apiResult[0]['address_components'][2]['long_name'];
+            $city = $apiResult[0]['address_components'][3]['long_name'];
+
+            if ($neighborhood == "" || $city == "") {
+                continue;
+            }
+
+            $loc1 = $this->addValue($em, $lr, $neighborhood, 0, $pokemonLocation->getLat(), $pokemonLocation->getLon());
             $em->persist($loc1);
-            $loc2 = $this->addValue($em, $lr, $apiResult[2]['address_components'][1]['long_name'], 1, $pokemonLocation->getLat(), $pokemonLocation->getLon());
+
+            $loc2 = $this->addValue($em, $lr, $city, 1, $pokemonLocation->getLat(), $pokemonLocation->getLon());
             $em->persist($loc2);
 
-            $output->writeln('Calculated location level 1: '.$apiResult[1]['address_components'][1]['long_name']);
-            $output->writeln('Calculated location level 2: '.$apiResult[1]['address_components'][3]['long_name']);
+            $output->writeln('Calculated location level 1: ' . $neighborhood);
+            $output->writeln('Calculated location level 2: ' . $city);
 
             $pokemonLocation->setCalculated(true);
             $em->persist($pokemonLocation);
 
-            $em->flush();
+            $temp += 1;
+
+            if ($temp >= 100) {
+                $temp = 0;
+                $em->flush();
+            }
         }
 
 
@@ -62,11 +83,11 @@ class CalculateLocalitiesCommand extends ContainerAwareCommand
 
     private function getAPI($lat, $lon)
     {
-        $url = "http://maps.googleapis.com/maps/api/geocode/json?latlng=".$lat.",".$lon;
+        $url = "http://maps.googleapis.com/maps/api/geocode/json?latlng=" . $lat . "," . $lon;
         $resp_json = file_get_contents($url);
         $resp = json_decode($resp_json, true);
 
-        if($resp['status']=='OK'){
+        if ($resp['status'] == 'OK') {
             return $resp['results'];
         } else {
             return false;
