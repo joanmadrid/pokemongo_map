@@ -24,7 +24,7 @@ class DefaultController extends Controller
         $lq = $lr->createQueryBuilder('l')
             ->where('l.level = 0')
             ->orderBy('l.count', 'DESC')
-            ->setMaxResults(20)
+            //->setMaxResults(20)
             ->getQuery();
 
         $lres = $lq->getResult();
