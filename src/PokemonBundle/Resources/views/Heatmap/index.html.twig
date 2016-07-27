@@ -1,0 +1,37 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="https://npmcdn.com/leaflet@1.0.0-rc.2/dist/leaflet.css" />
+        <script src="https://npmcdn.com/leaflet@1.0.0-rc.2/dist/leaflet.js"></script>
+        <style>
+            #mapid {
+                height:500px
+            }
+        </style>
+    </head>
+    <body>
+        <div id="mapid"></div>
+        <script type="text/javascript">
+            var mymap = L.map('mapid').setView([18.8340572,-73.0914039], 3);
+            L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZ29nb3Bva2VtYXAiLCJhIjoiY2lxdjVobmZmMDA4dWh3bmlvaDBxdTA2NyJ9.35Fbl3qWanY_UqBrfvG7-Q', {
+                maxZoom: 18,
+                id: 'gogopokemap.0nbmd20m',
+                accessToken: 'pk.eyJ1IjoiZ29nb3Bva2VtYXAiLCJhIjoiY2lxdjVobmZmMDA4dWh3bmlvaDBxdTA2NyJ9.35Fbl3qWanY_UqBrfvG7-Q'
+            }).addTo(mymap);
+
+            var marker;
+
+            {% for heatPoint in heatPoints %}
+            marker = L.marker([{{ heatPoint.lat }}, {{ heatPoint.lon }}]).addTo(mymap);
+            {% endfor %}
+
+            {% for sector in sectors %}
+            var polygon = L.polygon([
+                [{{ sector[0][0] }}, {{ sector[0][1] }}],
+                [{{ sector[1][0] }}, {{ sector[1][1] }}],
+                [{{ sector[2][0] }}, {{ sector[2][1] }}],
+                [{{ sector[3][0] }}, {{ sector[3][1] }}],
+            ]).addTo(mymap);
+            {% endfor %}
+        </script>
+    </body>
+</html>
