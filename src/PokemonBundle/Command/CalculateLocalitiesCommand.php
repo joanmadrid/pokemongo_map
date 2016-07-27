@@ -114,7 +114,7 @@ class CalculateLocalitiesCommand extends ContainerAwareCommand
         $count = $lq->getQuery()->getSingleScalarResult();
         $out->writeln('Pokemons found: ' + $count);
 
-        if ($count >= 70000) {
+        if ($count >= 120000) {
             return false;
         } else {
             return true;
