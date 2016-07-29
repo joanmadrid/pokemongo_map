@@ -5,14 +5,11 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
 use PokemonBundle\Entity\Heatpoint;
-use PokemonBundle\Entity\Locality;
 use PokemonBundle\Entity\PokemonLocation;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
-use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Stopwatch\Stopwatch;
 
 
 class CalculateHeatmapCommand extends ContainerAwareCommand
@@ -31,13 +28,13 @@ class CalculateHeatmapCommand extends ContainerAwareCommand
             ->addArgument(
                 'latDiv',
                 InputArgument::OPTIONAL,
-                'lat sector divisions ('.self::DIVISIONS_LAT.' default)',
+                'lat sector divisions (' . self::DIVISIONS_LAT . ' default)',
                 self::DIVISIONS_LAT
             )
             ->addArgument(
                 'lonDiv',
                 InputArgument::OPTIONAL,
-                'lon sector divisions ('.self::DIVISIONS_LON.' default)',
+                'lon sector divisions (' . self::DIVISIONS_LON . ' default)',
                 self::DIVISIONS_LON
             );
     }
@@ -62,35 +59,34 @@ class CalculateHeatmapCommand extends ContainerAwareCommand
         $output->writeln('Generating sectors...');
 
         $sectors = $this->getSectors($input->getArgument('latDiv'), $input->getArgument('lonDiv'));
-        $output->writeln('...'.count($sectors).' sectors generated');
+        $output->writeln('...' . count($sectors) . ' sectors generated');
 
         $output->writeln('Generating heatpoints...');
         $heatPoints = array();
         $i = 0;
-        foreach ($sectors as $key=>$sector) {
+        foreach ($sectors as $key => $sector) {
             $points = $this->findPointsInbound($sector[1], $sector[3]);
             $heatPoint = $this->calculateHeatPoint($points, $sector);
             if ($heatPoint) {
-                $output->writeln('...on sector #'.$key);
-                $output->writeln('...'.count($points).' points found inbound');
+                $output->writeln('...on sector #' . $key);
+                $output->writeln('...' . count($points) . ' points found inbound');
                 $heatPoints[] = $heatPoint;
-//                var_dump($heatPoint);
                 $hp = $this->addHeatpoint($heatPoint);
                 $this->em->persist($hp);
-                $output->writeln('...['.$heatPoint['lat'].','.$heatPoint['lon'].','.$heatPoint['force'].'] heatpoint generated');
+                $output->writeln('...[' . $heatPoint['lat'] . ',' . $heatPoint['lon'] . ',' . $heatPoint['force'] . '] heatpoint generated');
             } else {
-//                $output->writeln('...no points found');
             }
 
             $i++;
 
-            if ($i % 10000 == 0 ) {
-                $output->writeln('['.$i.' sectors checkpoint]');
+            if ($i % 5000 == 0) {
+                $output->writeln('[' . $i . ' sectors checkpoint]');
+                $this->em->flush();
             }
 
         }
         $this->em->flush();
-        $output->writeln('...'.count($heatPoints).' heatpoints generated total');
+        $output->writeln('...' . count($heatPoints) . ' heatpoints generated total');
 
 
     }
