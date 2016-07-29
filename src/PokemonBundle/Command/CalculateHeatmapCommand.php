@@ -31,13 +31,13 @@ class CalculateHeatmapCommand extends ContainerAwareCommand
             ->addArgument(
                 'latDiv',
                 InputArgument::OPTIONAL,
-                'lat sector divisions (' . self::DIVISIONS_LAT . ' default)',
+                'lat sector divisions ('.self::DIVISIONS_LAT.' default)',
                 self::DIVISIONS_LAT
             )
             ->addArgument(
                 'lonDiv',
                 InputArgument::OPTIONAL,
-                'lon sector divisions (' . self::DIVISIONS_LON . ' default)',
+                'lon sector divisions ('.self::DIVISIONS_LON.' default)',
                 self::DIVISIONS_LON
             );
     }
@@ -59,59 +59,40 @@ class CalculateHeatmapCommand extends ContainerAwareCommand
 //        $pokemonLocations = $query->getResult();
 
 
-        $stopwatch = new Stopwatch();
-
-        $eventGenSec = $stopwatch->start('gen_sectors');
         $output->writeln('Generating sectors...');
 
         $sectors = $this->getSectors($input->getArgument('latDiv'), $input->getArgument('lonDiv'));
-        $output->writeln('...' . count($sectors) . ' sectors generated');
+        $output->writeln('...'.count($sectors).' sectors generated');
 
         $eventGenSec->stop();
-        $output->writeln("Generating sectors time: " + $eventGenSec->getDuration() / 60);
 
-
-        $eventGenHeat = $stopwatch->start('gen_heat');
         $output->writeln('Generating heatpoints...');
         $heatPoints = array();
         $i = 0;
-
-        $eventSecCheck = $stopwatch->start('sec_check');
-        foreach ($sectors as $key => $sector) {
+        foreach ($sectors as $key=>$sector) {
             $points = $this->findPointsInbound($sector[1], $sector[3]);
             $heatPoint = $this->calculateHeatPoint($points, $sector);
             if ($heatPoint) {
-                $output->writeln('...on sector #' . $key);
-                $output->writeln('...' . count($points) . ' points found inbound');
+                $output->writeln('...on sector #'.$key);
+                $output->writeln('...'.count($points).' points found inbound');
                 $heatPoints[] = $heatPoint;
 //                var_dump($heatPoint);
                 $hp = $this->addHeatpoint($heatPoint);
                 $this->em->persist($hp);
-                $output->writeln('...[' . $heatPoint['lat'] . ',' . $heatPoint['lon'] . ',' . $heatPoint['force'] . '] heatpoint generated');
+                $output->writeln('...['.$heatPoint['lat'].','.$heatPoint['lon'].','.$heatPoint['force'].'] heatpoint generated');
             } else {
 //                $output->writeln('...no points found');
             }
 
             $i++;
 
-            if ($i % 10000 == 0) {
-                $eventSecCheck->stop();
-                $output->writeln('[' . $i . ' sectors checkpoint] Time elapsed: ' + $eventSecCheck->getDuration() / 60);
-
-                $eventSaving = $stopwatch->start('saving_sector');
-                $output->writeln('Saving sector on BBDD ' + $eventSecCheck->getDuration() / 60);
-                $this->em->flush();
-                $eventSaving->stop();
-                $output->writeln('Saving elapsed time ' + $eventSaving->getDuration() / 60);
-
-                $eventSecCheck->start();
+            if ($i % 10000 == 0 ) {
+                $output->writeln('['.$i.' sectors checkpoint]');
             }
 
         }
-
-        $eventGenHeat->stop();
-        $output->writeln('...' . count($heatPoints) . ' heatpoints generated total');
-        $output->writeln("Generating heatpoints time: " + $eventGenHeat->getDuration() / 60);
+        $this->em->flush();
+        $output->writeln('...'.count($heatPoints).' heatpoints generated total');
 
 
     }
