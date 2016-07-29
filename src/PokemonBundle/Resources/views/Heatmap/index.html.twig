@@ -24,14 +24,14 @@
             marker = L.marker([{{ heatPoint.lat }}, {{ heatPoint.lon }}]).addTo(mymap);
             {% endfor %}
 
-            {% for sector in sectors %}
+            {#{% for sector in sectors %}
             var polygon = L.polygon([
                 [{{ sector[0][0] }}, {{ sector[0][1] }}],
                 [{{ sector[1][0] }}, {{ sector[1][1] }}],
                 [{{ sector[2][0] }}, {{ sector[2][1] }}],
                 [{{ sector[3][0] }}, {{ sector[3][1] }}],
             ]).addTo(mymap);
-            {% endfor %}
+            {% endfor %}#}
         </script>
     </body>
 </html>

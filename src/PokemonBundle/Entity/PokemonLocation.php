@@ -55,6 +55,13 @@ class PokemonLocation
      */
     private $calculated = false;
 
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="inHeatmap", type="boolean")
+     */
+    private $inHeatmap = false;
+
 
     /**
      * Get id
@@ -160,5 +167,19 @@ class PokemonLocation
         $this->calculated = $calculated;
     }
 
+    /**
+     * @return boolean
+     */
+    public function isInHeatmap()
+    {
+        return $this->inHeatmap;
+    }
 
+    /**
+     * @param boolean $inHeatmap
+     */
+    public function setInHeatmap($inHeatmap)
+    {
+        $this->inHeatmap = $inHeatmap;
+    }
 }

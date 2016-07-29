@@ -17,7 +17,7 @@ class CalculateLocalitiesCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setName('pokemon:calculate:localities')
+            ->setName('pokemon:locality:calculate')
             ->setDescription('Calculate localities');
     }
 
