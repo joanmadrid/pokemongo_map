@@ -64,8 +64,6 @@ class CalculateHeatmapCommand extends ContainerAwareCommand
         $sectors = $this->getSectors($input->getArgument('latDiv'), $input->getArgument('lonDiv'));
         $output->writeln('...'.count($sectors).' sectors generated');
 
-        $eventGenSec->stop();
-
         $output->writeln('Generating heatpoints...');
         $heatPoints = array();
         $i = 0;
