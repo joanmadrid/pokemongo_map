@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * PokemonLocation
  *
- * @ORM\Table(name="pokemon_location")
+ * @ORM\Table(name="pokemon_location", indexes={@ORM\Index(name="pl_lat_idx", columns={"lat"}),@ORM\Index(name="pl_lon_idx", columns={"lon"})})
  * @ORM\Entity(repositoryClass="PokemonBundle\Repository\PokemonLocationRepository")
  */
 class PokemonLocation
@@ -66,7 +66,7 @@ class PokemonLocation
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -89,7 +89,7 @@ class PokemonLocation
     /**
      * Get lat
      *
-     * @return float 
+     * @return float
      */
     public function getLat()
     {
@@ -112,7 +112,7 @@ class PokemonLocation
     /**
      * Get lon
      *
-     * @return float 
+     * @return float
      */
     public function getLon()
     {
